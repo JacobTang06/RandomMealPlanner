@@ -1,5 +1,6 @@
 package com.example.randommealplanner
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -18,10 +19,14 @@ class SecondScreen : AppCompatActivity() {
 
         var foodName = findViewById<TextView>(R.id.mealName)
         var foodImage = findViewById<ImageView>(R.id.mealImage)
-        var foodInstructions = findViewById<Button>(R.id.mealInstructions)
+
         var foodCuisine = findViewById<TextView>(R.id.mealCuisine)
         var foodType = findViewById<TextView>(R.id.mealCategory)
         getFoodRecipeURL(foodImage, foodName, foodCuisine, foodType)
+
+        val foodInstructionButton: Button = findViewById(R.id.mealInstructions)
+
+        foodInstructionButton.setOnClickListener { ingredientButtonClicked() }
     }
 
     private fun getFoodRecipeURL(foodImage:ImageView, foodName:TextView, foodCuisine:TextView, foodType:TextView) {
@@ -43,8 +48,8 @@ class SecondScreen : AppCompatActivity() {
                 var mealCategory = json.jsonObject.getJSONArray("meals").getJSONObject(0).getString("strCategory")
                 var mealCuisine = json.jsonObject.getJSONArray("meals").getJSONObject(0).getString("strArea")
                 var mealThumbnail = json.jsonObject.getJSONArray("meals").getJSONObject(0).getString("strMealThumb")
-                var mealVideo = json.jsonObject.getJSONArray("meals").getJSONObject(0).getString("strYoutube")
-                var mealInstructions = json.jsonObject.getJSONArray("meals").getJSONObject(0).getString("strInstructions")
+                //var mealVideo = json.jsonObject.getJSONArray("meals").getJSONObject(0).getString("strYoutube")
+                //var mealInstructions = json.jsonObject.getJSONArray("meals").getJSONObject(0).getString("strInstructions")
 
                 foodName.text = mealName
                 foodCuisine.text = "Cuisine: " + mealCuisine
@@ -59,5 +64,12 @@ class SecondScreen : AppCompatActivity() {
             }
 
         }]
+    }
+
+    private fun ingredientButtonClicked() {
+        val i = Intent(this, InstructionScreen::class.java)
+
+        startActivity(i)
+        //finishActivity(1)
     }
 }

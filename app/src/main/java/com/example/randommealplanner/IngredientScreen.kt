@@ -9,9 +9,6 @@ class IngredientScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ingredient_screen)
 
-//        val button: Button = findViewById(R.id.buttonTitle)
-//
-//        button.setOnClickListener { yellowButtonClicked() }
 
 
     }
