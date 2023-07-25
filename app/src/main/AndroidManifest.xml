@@ -23,6 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SecondScreen"/>
+        <activity android:name=".IngredientScreen"/>
+        <activity android:name=".InstructionScreen"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
