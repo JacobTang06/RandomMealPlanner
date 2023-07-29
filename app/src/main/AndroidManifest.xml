@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SecondScreen"/>
-        <activity android:name=".IngredientScreen"/>
+        <activity android:name=".VideoScreen"/>
         <activity android:name=".InstructionScreen"/>
 
         <meta-data

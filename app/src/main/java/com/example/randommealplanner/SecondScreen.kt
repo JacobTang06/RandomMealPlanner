@@ -1,11 +1,10 @@
 package com.example.randommealplanner
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.codepath.asynchttpclient.AsyncHttpClient
@@ -13,6 +12,8 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler
 import okhttp3.Headers
 
 class SecondScreen : AppCompatActivity() {
+    private lateinit var foodInstructions:String
+    private lateinit var foodURL:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.second_screen_layout)
@@ -22,11 +23,16 @@ class SecondScreen : AppCompatActivity() {
 
         var foodCuisine = findViewById<TextView>(R.id.mealCuisine)
         var foodType = findViewById<TextView>(R.id.mealCategory)
+
         getFoodRecipeURL(foodImage, foodName, foodCuisine, foodType)
 
         val foodInstructionButton: Button = findViewById(R.id.mealInstructions)
 
         foodInstructionButton.setOnClickListener { ingredientButtonClicked() }
+
+        val foodVideoButton : Button = findViewById(R.id.videoButton)
+
+        foodVideoButton.setOnClickListener { videoButtonClicked() }
     }
 
     private fun getFoodRecipeURL(foodImage:ImageView, foodName:TextView, foodCuisine:TextView, foodType:TextView) {
@@ -48,12 +54,14 @@ class SecondScreen : AppCompatActivity() {
                 var mealCategory = json.jsonObject.getJSONArray("meals").getJSONObject(0).getString("strCategory")
                 var mealCuisine = json.jsonObject.getJSONArray("meals").getJSONObject(0).getString("strArea")
                 var mealThumbnail = json.jsonObject.getJSONArray("meals").getJSONObject(0).getString("strMealThumb")
-                //var mealVideo = json.jsonObject.getJSONArray("meals").getJSONObject(0).getString("strYoutube")
-                //var mealInstructions = json.jsonObject.getJSONArray("meals").getJSONObject(0).getString("strInstructions")
+                var mealVideo = json.jsonObject.getJSONArray("meals").getJSONObject(0).getString("strYoutube")
+                var mealInstructions = json.jsonObject.getJSONArray("meals").getJSONObject(0).getString("strInstructions")
 
                 foodName.text = mealName
                 foodCuisine.text = "Cuisine: " + mealCuisine
                 foodType.text = "Category: " + mealCategory
+                foodInstructions = mealInstructions
+                foodURL = mealVideo
 
                 Glide.with(this@SecondScreen)
                     .load(mealThumbnail)
@@ -68,8 +76,13 @@ class SecondScreen : AppCompatActivity() {
 
     private fun ingredientButtonClicked() {
         val i = Intent(this, InstructionScreen::class.java)
-
+        i.putExtra("instructions", foodInstructions)
         startActivity(i)
-        //finishActivity(1)
+    }
+
+    private fun videoButtonClicked() {
+        val i = Intent(this, VideoScreen::class.java)
+        i.putExtra("video", foodURL)
+        startActivity(i)
     }
 }
