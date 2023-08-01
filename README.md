@@ -16,7 +16,7 @@ Submitted by: Jacob Tang
 
 Here's a video / GIF that demos all of the app's implemented features:
 
-<img src='https://github.com/JacobTang06/MovieStyle/blob/master/MovieStyle.gif' title='Video Demo' width='' alt='Video Demo' />
+<img src='FoodFinder.gif' title='Video Demo' width='' alt='Video Demo' />
 
 GIF created with Kap
 
